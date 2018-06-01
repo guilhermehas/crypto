@@ -8,3 +8,7 @@ install:
 # command to run tests
 script:
   - pipenv run pytest # or py.test for Python versions 3.5 and below
+
+notifications:
+  slack: guilhermehas:RvkK6mtnuXNoy3tYK8kHPmah
+  email: false
