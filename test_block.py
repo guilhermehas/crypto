@@ -1,8 +1,11 @@
 import pytest
 from block import *
 
-@pytest.mark.parametrize("data", 
+
+pygen = pytest.mark.parametrize("data", 
     ["abc", "cdb", "234", "44444"])
+
+@pygen
 def test_first_block(data: str):
     genesis_block = GenesisBlock(data=data)
     assert genesis_block.data == data
@@ -11,8 +14,7 @@ def test_first_block(data: str):
 def genesis_block():
     return GenesisBlock(data="abc")
 
-@pytest.mark.parametrize("data", 
-    ["abc", "cdb", "234", "44444"])
+@pygen
 def test_second_block(data):
     block = Block(previous_block=genesis_block, data=data)
     assert block.data == data
@@ -27,3 +29,4 @@ def test_second_block(data):
 def test_diferent_hashes(data1, data2):
     block1, block2 = map(lambda data: GenesisBlock(data), (data1,data2))
     assert hash(block1) != hash(block2)
+    
