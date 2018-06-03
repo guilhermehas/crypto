@@ -16,14 +16,6 @@ pygen_w = pytest.mark.parametrize("wallet", wallets)
 pygen_wt = pytest.mark.parametrize("wallet,output_public_key,amount", 
     zip(wallets,public_keys,amounts))
 
-@pygen_pw
-def test_create_wallet(private_key,wallet):
-    assert True
-
-@pygen_pw
-def test_public_key(wallet, private_key):
-    assert True
-
 @pygen_wt
 def test_make_transaction(wallet,output_public_key,amount):
     transaction = Transaction(input=wallet.get_public_key_in_bytes(), outputs=[output_public_key,amount])

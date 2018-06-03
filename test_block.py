@@ -19,12 +19,7 @@ pygen = pytest.mark.parametrize('transactions',block_data_transactions)
 
 @pytest.fixture
 def genesis_block():
-    return GenesisBlock(transactions=block_data_transactions[0])
-
-@pygen
-def test_first_block(transactions):
-    genesis_block = GenesisBlock(transactions=transactions)
-    assert genesis_block.transactions == transactions
+    return GenesisBlock(miner_pub_key=b'123')
 
 @pygen
 def test_second_block(transactions):
@@ -37,7 +32,7 @@ def test_mining_block(transactions):
     block = Block(previous_block=genesis_block ,transactions=transactions)
     block.mine(difficult=0)
 
-@pytest.mark.parametrize("transactions1,transactions2", [block_data_transactions[:2]])
-def test_diferent_hashes(transactions1, transactions2):
-    block1, block2 = map(lambda transactions: GenesisBlock(transactions), (transactions1,transactions2))
+@pytest.mark.parametrize("pub_key1,pub_key2", [(b"123", b"321")] )
+def test_diferent_hashes(pub_key1, pub_key2):
+    block1, block2 = map(lambda pub_key: GenesisBlock(miner_pub_key=pub_key), (pub_key1,pub_key2))
     assert hash(block1) != hash(block2)
