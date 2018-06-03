@@ -8,8 +8,8 @@ from transaction import *
     ('123', 'fff', 143553, '5fvv'),
 ])
 def test_transaction(sender_key: str, receiver_key: str, amount: float, signature: str):
-    transaction = Transaction(input=sender_key, output=receiver_key, amount=amount, signature=signature)
+    transaction = Transaction(input=sender_key, outputs=[receiver_key], amount=amount, signature=signature)
     assert transaction.input == sender_key
-    assert transaction.output == receiver_key
+    assert transaction.outputs[0] == receiver_key
     assert transaction.amount == amount
     assert transaction.signature == signature

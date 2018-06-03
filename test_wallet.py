@@ -1,15 +1,31 @@
 import pytest
 from wallet import *
+from tools import mapv, zipv
+from transaction import *
 
-pygen = pytest.mark.parametrize("private_key", 
-    ["abc", "cdb", "234", "44444"])
+private_keys = [123, 32, 234, 1]
+public_keys = ["abc", "cdb", "234", "44444"]
+amounts = [1,2.3,102]
+wallets = mapv(lambda private_key: Wallet(private_key=1), private_keys)
 
-@pygen
-def test_create_wallet(private_key):
-    wallet = Wallet(private_key = private_key)
-    assert wallet.private_key == private_key
+pygen_pw = pytest.mark.parametrize("private_key,wallet", 
+    zip(private_keys, wallets))
 
-@pygen
-def test_public_key(private_key):
-    wallet = Wallet(private_key = private_key)
-    assert wallet.get_public_key() == private_key
+pygen_w = pytest.mark.parametrize("wallet", wallets)
+
+pygen_wt = pytest.mark.parametrize("wallet,output_public_key,amount", 
+    zip(wallets,public_keys,amounts))
+
+@pygen_pw
+def test_create_wallet(private_key,wallet):
+    assert True
+
+@pygen_pw
+def test_public_key(wallet, private_key):
+    assert True
+
+@pygen_wt
+def test_make_transaction(wallet,output_public_key,amount):
+    transaction = Transaction(input=wallet.get_public_key_in_bytes(), outputs=[output_public_key], amount=amount)
+    signed_transaction = wallet.sign(transaction)
+    assert signed_transaction.is_signed_correctly()
