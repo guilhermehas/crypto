@@ -28,4 +28,4 @@ class Block:
 
 
 def GenesisBlock(miner_pub_key=None):
-    return Block(previous_block=None, transactions=None, miner_pub_key=miner_pub_key)
+    return Block(previous_block=None, transactions=[], miner_pub_key=miner_pub_key)

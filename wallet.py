@@ -16,3 +16,6 @@ class Wallet:
         signature = get_signature(self.private_key, bytes(transaction))
         signed_transaction.signature = signature
         return signed_transaction
+    
+    def get_balance(self,blockchain):
+        pass

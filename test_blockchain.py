@@ -28,7 +28,7 @@ def blockchain():
 
 def test_blockchain_wrong(blockchain):
     blockchain.chain[-2].miner_pub_key = b"zzz"
-    assert not blockchain.is_correct()
+    assert not BlockArray(blockchain).is_correct()
     
 def test_blockchain_right(blockchain):
-    assert blockchain.is_correct()
+    assert BlockArray(blockchain).is_correct()
