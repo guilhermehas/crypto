@@ -1,25 +1,30 @@
 from block import Block, GenesisBlock
 from transaction import *
 from blockchain import *
+from wallet import *
+from tools import mapv
+from crypto import private_to_pub_bytes
 import pytest
 
 @pytest.fixture
 def blockchain():
     blockchain = Blockchain()
 
-    genesis_block = GenesisBlock(miner_pub_key=b'abc')
+    private_keys = [43,53,63]
+    public_keys = mapv(private_to_pub_bytes,private_keys)
+
+    genesis_block = GenesisBlock(miner_pub_key=public_keys[0])
     genesis_block.mine(blockchain.get_difficult())
     blockchain.add(genesis_block)
 
-    pubs_keys = [b"abc",b"p1"]
-    miners = [b"p1",b"p2"]
+    miners = [public_keys[1],public_keys[2]]
     outputs_array = [
-        [(b"abc", 1),(b"p1",2)],
-        [(b"p2",10),(b"p1",1)]
+        [(public_keys[0], 1),(public_keys[1],2)],
+        [(public_keys[2],10),(public_keys[1],1)]
     ]
 
-    for key, miner, outputs in zip(pubs_keys, miners, outputs_array):
-        transaction = Transaction(key, outputs)
+    for key, miner, outputs in zip(private_keys, miners, outputs_array):
+        transaction = Wallet(key).sign(Transaction(outputs))
         block = Block(blockchain.get_last_block(), [transaction], miner_pub_key=miner)
         block.mine(blockchain.get_difficult())
         blockchain.add(block)

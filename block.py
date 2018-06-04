@@ -1,6 +1,5 @@
 from hashlib import sha256
 from pickle import dumps
-from tools import to_tuple
 
 class Block:
     def __init__(self, previous_block, transactions, miner_pub_key=None, nounce=0):
@@ -9,11 +8,12 @@ class Block:
         self.nounce = nounce
         self.miner_pub_key = miner_pub_key
     
+  
     def __hash__(self):
         return int(self.internal_hash().hexdigest(),16)
 
     def internal_hash(self):
-        return sha256(dumps((self.previous_hash, to_tuple(self.transactions),self.nounce, self.miner_pub_key)))
+        return sha256(dumps((self.previous_hash, [bytes(it) for it in self.transactions],self.nounce, self.miner_pub_key)))
     
     def is_mined(self,difficult):
         return hash(self)//(2**(60-8*difficult)) == 0

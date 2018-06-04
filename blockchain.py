@@ -1,5 +1,6 @@
 from collections import defaultdict
 from tools import mapv
+from transaction import *
 
 class Blockchain:
     def __init__(self):
@@ -23,13 +24,20 @@ class Blockchain:
         if is_just_one_senders_per_block:
             return False
 
-        for transaction in block.transactions:
+        def is_transaction_right(transaction):
+            if not transaction.is_signed_correctly():
+                return False
+            
             if hash(transaction) in self.transaction_hashes:
                 return False
 
             sum_output = transaction.get_sum_outputs()
             if sum_output > self.balances[transaction.input]:
                 return False
+            return True
+
+        if block.transactions and not(any(map(is_transaction_right,block.transactions))):
+            return False
 
         if not block.is_mined(self.difficult):
             return False

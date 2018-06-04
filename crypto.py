@@ -15,6 +15,9 @@ def get_private_key(n):
             backend=default_backend()
         )
 
+def private_to_pub_bytes(n):
+    return pub_to_bytes(get_private_key(n).public_key())
+
 def get_signature(private_key, data):
     return private_key.sign(
         data,
@@ -22,7 +25,8 @@ def get_signature(private_key, data):
     )
 
 def get_public_key(data):
-    return load_pem_public_key(data, backend=default_backend())
+    return load_pem_public_key(data,
+        backend=default_backend())
 
 
 def pub_to_bytes(public_key):

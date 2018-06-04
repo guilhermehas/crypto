@@ -4,14 +4,15 @@ from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import hashes
 
 class Transaction:
-    def __init__(self, input, outputs, timestamp = 0, signature = None):
+    def __init__(self, outputs, input=None, timestamp = 0, signature = None):
         self.input = input
         self.outputs = outputs
         self.signature = signature
         self.timestamp = timestamp
     
     def __bytes__(self):
-        all_data = pickle.dumps((self.input,self.outputs, self.timestamp))
+        to_compress = (self.input, self.outputs, self.timestamp)
+        all_data = bytes(str(to_compress), encoding="utf-8")
         return all_data
     
     def is_signed_correctly(self):
