@@ -7,7 +7,7 @@ install:
   - pipenv update
 # command to run tests
 script:
-  - pipenv run pytest # or py.test for Python versions 3.5 and below
+  - pipenv run coverage run --include=mypkg main.py
 
 notifications:
   slack: guilhermehas:RvkK6mtnuXNoy3tYK8kHPmah
