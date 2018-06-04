@@ -1,11 +1,14 @@
 from pickle import dumps, loads
 import pickle
-from zlib import decompress
 from base64 import b64encode, b64decode
+from blockchain import *
 
 class ServerUtils():
     def __init__(self):
-        pass
+        self.blockchain =  Blockchain()
+    
+    def receive_block_array(self, blockArray):
+        self.blockchain.substitute(blockArray)
     
     def to_str(self, obj):
         return str(b64encode(dumps(obj, protocol=pickle.HIGHEST_PROTOCOL)), 'utf8')
