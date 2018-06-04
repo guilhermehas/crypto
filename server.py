@@ -17,6 +17,9 @@ class ServerUtils():
     def receive_transaction(self, transaction):
         self.transactionPool.receive_transaction(self.blockchain, transaction)
     
+    def get_blockchain_str(self):
+        return str(self.blockchain.to_dict())
+    
     def mine(self):
         transactions = self.transactionPool.get_best_transactions(self.blockchain, 1)
         block = Block(self.blockchain.get_last_block(), transactions,  \

@@ -14,6 +14,13 @@ def server():
     wallet= Wallet(3)
     return ServerUtils(wallet)
 
+def test_print_blockchain(blockchain, server):
+    server.receive_block_array(BlockArray(blockchain))
+    msg = server.get_blockchain_str()
+    assert isinstance(msg, str)
+    #print(msg)
+
+
 def test_same_transaction(server):
     transaction = transactions[0]
     transaction_str = server.to_str(transaction)

@@ -1,5 +1,6 @@
 from hashlib import sha256
 from pickle import dumps
+from tools import *
 
 class Block:
     def __init__(self, previous_block, transactions, miner_pub_key=None, nounce=0):
@@ -8,6 +9,13 @@ class Block:
         self.nounce = nounce
         self.miner_pub_key = miner_pub_key
     
+    def to_dict(self):
+        return {
+            "previous_hash": self.previous_hash,
+            "nounce": self.nounce,
+            "transactions": [trans.to_dict() for trans in self.transactions],
+            "miner public key": hash(self.miner_pub_key)
+        }
   
     def __hash__(self):
         return int(self.internal_hash().hexdigest(),16)

@@ -14,6 +14,12 @@ class Blockchain:
         self.balances = defaultdict(float)
         self.transaction_hashes = set()
     
+    def to_dict(self):
+        return {
+            'balances': [(hash(key), qt) for key, qt in self.balances.items()],
+            'blocks': [block.to_dict() for block in self.chain]
+        }
+    
     def copy(self, blockchain):
         self.chain = deepcopy(blockchain.chain)
         self.difficult = blockchain.difficult

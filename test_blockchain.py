@@ -12,6 +12,10 @@ from examples_to_test import *
 def blockchain():
     return block_example()
 
+def test_blockchain_to_dict(blockchain):
+    blockchain_dict = blockchain.to_dict()
+    #print(blockchain_dict)
+
 def test_blockchain_wrong(blockchain):
     blockchain.chain[-2].miner_pub_key = b"zzz"
     assert not BlockArray(blockchain).is_correct()

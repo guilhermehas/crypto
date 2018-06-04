@@ -15,6 +15,14 @@ class Transaction:
         all_data = bytes(str(to_compress), encoding="utf-8")
         return all_data
     
+    def to_dict(self):
+        return {
+            "input": hash(self.input), 
+            "outputs": [(hash(pub),out) for pub,out in self.outputs],
+            "signature": hash(self.signature),
+            "timestamp": self.timestamp
+        }
+    
     def is_signed_correctly(self):
         return is_signed_correctly(self.signature, bytes(self), get_public_key(self.input))
     
