@@ -18,7 +18,7 @@ class Block:
     def is_mined(self,difficult):
         return hash(self)//(2**(60-8*difficult)) == 0
 
-    def mine(self, difficult):
+    def mine(self, difficult=0):
         for i in range(10**9):
             self.nounce = i
             if self.is_mined(difficult):

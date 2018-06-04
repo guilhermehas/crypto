@@ -52,9 +52,9 @@ class Blockchain:
         if self.is_new_block_OK(block):
 
             self.chain.append(block)
-            self.transaction_hashes.add(hash(block))
 
             for transaction in block.transactions:
+                self.transaction_hashes.add(hash(transaction))
                 sum_outs = transaction.get_sum_outputs()
                 assert sum_outs >= 0
 
