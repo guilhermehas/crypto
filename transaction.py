@@ -23,3 +23,10 @@ class Transaction:
         for _, out in self.outputs:
             sum_output += out
         return sum_output
+
+    def is_equal(self, transaction):
+        return self.input == transaction.input and \
+            self.outputs == transaction.outputs and \
+            self.timestamp == transaction.timestamp
+
+            ##self.signature == transaction.signature and \

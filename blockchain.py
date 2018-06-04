@@ -1,14 +1,25 @@
 from collections import defaultdict
 from tools import mapv
 from transaction import *
+from copy import deepcopy
 
 class Blockchain:
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.chain = []
         self.difficult = 0
         self.reward = 10
         self.balances = defaultdict(float)
         self.transaction_hashes = set()
+    
+    def copy(self, blockchain):
+        self.chain = deepcopy(blockchain.chain)
+        self.difficult = blockchain.difficult
+        self.reward = blockchain.reward
+        self.balances = deepcopy(blockchain.balances)
+        self.transaction_hashes = deepcopy(blockchain.transaction_hashes)
     
     def get_difficult(self):
         return self.difficult
@@ -69,6 +80,19 @@ class Blockchain:
         else:
             raise Exception('Blockchain invalid')
     
+    def substitute(self, blockArray):
+        if len(blockArray) < len(self):
+            return False
+        new_blockchain = blockArray.to_blockchain()
+        if new_blockchain is None:
+            return False
+        self.copy(new_blockchain)
+        return True
+
+    
+    def __len__(self):
+        return len(self.chain)
+
     def get_last_block(self):
         if self.chain:
             return self.chain[-1]
@@ -78,14 +102,25 @@ class Blockchain:
 class BlockArray:
     def __init__(self, blocks):
         if isinstance(blocks, Blockchain):
-            self.chain = blocks.chain
+            self.chain = deepcopy(blocks.chain)
         else:
-            self.chain = blocks
+            self.chain = deepcopy(blocks)
     
-    def is_correct(self):
+    def to_blockchain(self):
         blockchain = Blockchain()
         for block in self.chain:
             if not blockchain.is_new_block_OK(block):
-                return False
+                return None
             blockchain.add(block)
+        return blockchain
+
+    def is_correct(self):
+        if self.to_blockchain() is None:
+            return False
         return True
+    
+    def add(self, block):
+        self.chain.append(block)
+    
+    def __len__(self):
+        return len(self.chain)

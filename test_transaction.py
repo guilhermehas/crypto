@@ -3,6 +3,7 @@ from transaction import *
 from wallet import *
 from crypto import *
 
+
 @pytest.mark.parametrize("sender_key,receiver_key,amount", [ 
     (43, 53, 0),
     (53, 43, 0.001),
@@ -15,3 +16,4 @@ def test_transaction(sender_key, receiver_key, amount: float):
     signed_transaction = wallet.sign(transaction)
 
     assert signed_transaction.is_signed_correctly()
+    print(signed_transaction)

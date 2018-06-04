@@ -10,19 +10,30 @@ tuple_transactions = [
     (53, [(2, 0.001)]),
     (63, [(41, 1234)]),
     (43, [(44, 143553)]),
+    (63, [(43, 0.1)]),
 ]
 
 def to_transaction(data):
     sender_key, outs = data
     wallet = Wallet(sender_key)
     def to_out(out):
-        #print("aqui",out)
         return [private_to_pub_bytes(out[0]), out[1]]
     transaction = Transaction(outputs=mapv(to_out, outs))
     signed_transaction = wallet.sign(transaction)
     return signed_transaction
 
 transactions = mapv(to_transaction, tuple_transactions)
+
+def transaction_to_block(transaction, miner, blockchain):
+    miner = private_to_pub_bytes(miner)
+
+    block = Block(blockchain.get_last_block(), [transaction], miner_pub_key=miner)
+    block.mine(blockchain.get_difficult())
+    return block
+
+# 63 -> 28
+# 53 -> 1
+# 43 -> 1
 
 def blockchain():
     blockchain = Blockchain()
