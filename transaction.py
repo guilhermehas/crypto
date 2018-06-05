@@ -15,6 +15,9 @@ class Transaction:
         all_data = bytes(str(to_compress), encoding="utf-8")
         return all_data
     
+    def __hash__(self):
+        return hash(bytes(self))
+    
     def to_dict(self):
         return {
             "input": hash(self.input), 

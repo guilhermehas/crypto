@@ -16,4 +16,3 @@ def test_transaction(sender_key, receiver_key, amount: float):
     signed_transaction = wallet.sign(transaction)
 
     assert signed_transaction.is_signed_correctly()
-    print(signed_transaction)
