@@ -6,7 +6,7 @@ This project is making an implementation of a copy of bitcoin in python.
 
 ## Instalation
 Clone the repostitory before install.
-```sh=
+```bash
 git clone https://github.com/guilhermehas/crypto
 cd crypto
 ```
@@ -14,13 +14,13 @@ cd crypto
 ### Python
 #### Manual Installation
 Install python 3.6 and its libraries needed. Run in command line:
-```sh=
+```bash
 python3 src/main.py
 ```
 
 #### Pipenv
 Install pipenv and run:
-```sh=
+```bash
 pipenv install
 pipenv run python3 src/main.py
 ```
@@ -28,55 +28,55 @@ pipenv run python3 src/main.py
 ## Running Tests
 #### Manual
 Install pytest, libraries and run:
-```sh=
+```bash
 pytest
 ```
 
 #### Pipenv
 Install pipenv and run:
-```sh=
+```bash
 pipenv run pytest
 ```
 
 ## Usage
 If you have some questions about command line interface. Use the command:
-```sh=
+```bash
 pipenv run python3 src/main.py --help
 ```
 You can specify your wallet, port of using and peers:
 ### Example
 Port 8765, wallet with private key 1
-```sh=
+```bash
 pipenv run python3 src/main.py --wallet 1 --port 8765 
 ```
 Port 8766, wallet with private key 3, connected to peer with port 8765
-```sh=
+```bash
 pipenv run python3 src/main.py --wallet 3 --port 8766 \
 --servers ws://localhost:8765
 ```
 Port 8767, wallet with private key 5, connected to peer with port 8765, 8766
-```sh=
+```bash
 pipenv run python3 src/main.py --wallet 5 --port 8767 \
 --servers ws://localhost:8765
 ```
 
 #### Sending web sockets commands:
 Send this command to [ws://localhost:8765]() to lock up the blockchain
-```json=
+```json
 {
     "agent": "person",
     "command": "blockchain"
 }
 ```
 Send this command to mine a block
-```json=
+```json
 {
     "agent": "person",
     "command": "mine"
 }
 ```
 Send this command to send the transaction to person with public key equal to 1 and the amount is 5. The sender is the one which wallet was specified at command line.
-```json=
+```json
 {
 	"agent": "person",
 	"command": "transaction",
