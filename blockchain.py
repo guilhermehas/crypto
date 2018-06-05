@@ -9,7 +9,7 @@ class Blockchain:
 
     def reset(self):
         self.chain = []
-        self.difficult = 0
+        self.difficult = 1
         self.reward = 10
         self.balances = defaultdict(float)
         self.transaction_hashes = set()
@@ -19,6 +19,7 @@ class Blockchain:
             'balances': [(hash(key), qt) for key, qt in self.balances.items()],
             'blocks': [block.to_dict() for block in self.chain]
         }
+    
     
     def copy(self, blockchain):
         self.chain = deepcopy(blockchain.chain)

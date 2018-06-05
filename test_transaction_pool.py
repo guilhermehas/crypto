@@ -32,7 +32,7 @@ def test_transaction_wrong(transactionPool, blockchain):
 def test_add_same_transaction(blockchain):
     transaction = to_transaction((63, [(63, 27)]))
     block = Block(blockchain.get_last_block(), [transaction])
-    block.mine()
+    block.mine(blockchain.get_difficult())
     blockchain.add(block)
     transactionPool = TransactionPool()
     assert not transactionPool.receive_transaction(blockchain, transaction)

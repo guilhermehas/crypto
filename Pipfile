@@ -8,6 +8,9 @@ cryptography = "*"
 coveralls = "*"
 pytest = "*"
 pytest-cov = "*"
+asyncio = "*"
+websockets = "*"
+argparse = "*"
 
 [dev-packages]
 

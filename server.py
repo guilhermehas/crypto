@@ -34,6 +34,14 @@ class ServerUtils():
     def to_obj(self, string):
         return loads(b64decode(string))
     
+    def get_command_blockchain(self):
+        command = {
+            'agent': 'machine',
+            'command': 'blockchain',
+            'blockchain': self.to_str(BlockArray(self.blockchain))
+        }
+        return command
+    
     def execute(self, command_dict):
         command = command_dict.get('command', '')
         agent = command_dict.get('agent', '')
@@ -46,7 +54,7 @@ class ServerUtils():
         elif agent == 'person':
             if command == 'mine':
                 self.mine()
-                return "mined"
+                return {"message": "mined", 'command': 'blockchain'}
             elif command == 'transaction':
                 receiver = command_dict['receiver']
                 receiver_pub = Wallet(receiver).get_public_key_in_bytes()
@@ -58,5 +66,8 @@ class ServerUtils():
                 transaction = Transaction(outputs=[(receiver_pub, amount)])
                 transaction = wallet_sender.sign(transaction)
                 self.receive_transaction(transaction)
+            elif command == 'blockchain':
+                return {'message': self.blockchain.to_dict()}
 
-        return ""
+
+        return {'message': ''}
