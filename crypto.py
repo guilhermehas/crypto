@@ -14,7 +14,7 @@ class PrivateKey:
         return PublicKey(self.n)
     
     def sign(self, message):
-        return str(hash(message)+self.n)
+        return str(message)+str(self.n)
 
 class PublicKey:
     def __init__(self, n):
@@ -27,7 +27,7 @@ class PublicKey:
         return bytes(str(self.n), encoding='utf8')
     
     def verify(self, signature, message):
-        return str(hash(message)+self.n) == signature 
+        return str(message)+str(self.n) == signature 
     
     
 def get_private_key(n):

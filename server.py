@@ -50,6 +50,7 @@ class ServerUtils():
             if command == 'transaction':
                 self.receive_transaction(self.to_obj(command_dict['transaction']))
             elif command == 'blockchain':
+                print(f"receiving {self.to_obj(command_dict['blockchain']).is_correct()}")
                 self.receive_block_array(self.to_obj(command_dict['blockchain']))
         elif agent == 'person':
             if command == 'mine':

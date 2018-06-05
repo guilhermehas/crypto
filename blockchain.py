@@ -16,12 +16,13 @@ class Blockchain:
     
     def to_dict(self):
         return {
-            'balances': [(hash(key), qt) for key, qt in self.balances.items()],
+            'balances': [(int(key.decode('utf8')), qt) for key, qt in self.balances.items()],
             'blocks': [block.to_dict() for block in self.chain]
         }
     
     
     def copy(self, blockchain):
+        self.reset()
         self.chain = deepcopy(blockchain.chain)
         self.difficult = blockchain.difficult
         self.reward = blockchain.reward
@@ -79,8 +80,8 @@ class Blockchain:
                 miner_reward = self.balances[transaction.input] - sum_outs
                 assert miner_reward >= 0
 
-                self.balances[block.miner_pub_key] += miner_reward
                 self.balances[transaction.input] = 0
+                self.balances[block.miner_pub_key] += miner_reward
                 for pub_out, pub_rew in transaction.outputs:
                     self.balances[pub_out] += pub_rew
             self.balances[block.miner_pub_key] += self.reward

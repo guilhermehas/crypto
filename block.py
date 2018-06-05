@@ -14,7 +14,7 @@ class Block:
             "previous_hash": self.previous_hash,
             "nounce": self.nounce,
             "transactions": [trans.to_dict() for trans in self.transactions],
-            "miner public key": hash(self.miner_pub_key)
+            "miner public key": int(self.miner_pub_key.decode('utf8'))
         }
   
     def __hash__(self):

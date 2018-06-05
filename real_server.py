@@ -43,10 +43,13 @@ async def connect_servers():
 async def hello(websocket, path):
     command_string = await websocket.recv()
     command = loads(command_string)
-    if command['agent'] == 'machine' and command['command'] == 'connect':
+    if 'agent' in command and command['agent'] == 'machine' and 'command' in command and command['command'] == 'connect':
         peer = command.get('peer',None)
         if peer:
             servers_connected.append(peer)
+    if 'agent' in command and command['agent'] == 'person' and 'command' in command and command['command'] == 'transaction':
+        command['sender'] = wallet_number
+
     ret = server.execute(command)
     if 'message' in ret and ret['message']:
         print(ret['message'])
