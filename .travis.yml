@@ -7,7 +7,10 @@ install:
   - pipenv update
 # command to run tests
 script:
-  - pipenv run pytest --cov=crypto .
+  - pipenv run pytest
+after_success:
+  - pipenv run coveralls
+
 
 notifications:
   slack: guilhermehas:RvkK6mtnuXNoy3tYK8kHPmah
