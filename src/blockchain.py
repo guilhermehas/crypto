@@ -9,7 +9,7 @@ class Blockchain:
 
     def reset(self):
         self.chain = []
-        self.difficult = 1
+        self.difficult = 0
         self.reward = 10
         self.balances = defaultdict(float)
         self.transaction_hashes = set()

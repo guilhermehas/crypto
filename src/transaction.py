@@ -27,7 +27,8 @@ class Transaction:
         }
     
     def is_signed_correctly(self):
-        return is_signed_correctly(self.signature, bytes(self), get_public_key(self.input))
+        return PublicKey(self.input).verify(self.signature, bytes(self))
+        #return is_signed_correctly(self.signature, bytes(self), get_public_key(self.input))
     
     def get_sum_outputs(self):
         sum_output = 0

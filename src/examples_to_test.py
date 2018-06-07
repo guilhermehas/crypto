@@ -18,7 +18,7 @@ def to_transaction(data):
     sender_key, outs = data
     wallet = Wallet(sender_key)
     def to_out(out):
-        return [private_to_pub_bytes(out[0]), out[1]]
+        return [PrivateKey(out[0]).public_key().to_bytes(), out[1]]
     transaction = Transaction(outputs=mapv(to_out, outs))
     signed_transaction = wallet.sign(transaction)
     return signed_transaction
@@ -26,7 +26,7 @@ def to_transaction(data):
 transactions = mapv(to_transaction, tuple_transactions)
 
 def transaction_to_block(transaction, miner, blockchain):
-    miner = private_to_pub_bytes(miner)
+    miner = PrivateKey(miner).public_key().to_bytes()
 
     block = Block(blockchain.get_last_block(), [transaction], miner_pub_key=miner)
     block.mine(blockchain.get_difficult())
@@ -40,7 +40,7 @@ def blockchain():
     blockchain = Blockchain()
 
     private_keys = [43,53,63]
-    public_keys = mapv(private_to_pub_bytes,private_keys)
+    public_keys = mapv(lambda priv: PrivateKey(priv).public_key().to_bytes(),private_keys)
 
     genesis_block = GenesisBlock(miner_pub_key=public_keys[0])
     genesis_block.mine(blockchain.get_difficult())

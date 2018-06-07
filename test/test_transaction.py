@@ -10,7 +10,7 @@ from crypto import *
     (63, 43, 1234),
 ])
 def test_transaction(sender_key, receiver_key, amount: float):
-    receiver_pub_key = private_to_pub_bytes(receiver_key)
+    receiver_pub_key = PrivateKey(receiver_key).public_key().to_bytes()
     transaction = Transaction(outputs = [(receiver_pub_key, amount)])
     wallet = Wallet(sender_key)
     signed_transaction = wallet.sign(transaction)

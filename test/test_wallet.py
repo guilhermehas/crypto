@@ -6,7 +6,7 @@ from transaction import *
 private_keys = [123, b'32', 234, 1]
 public_keys = ["abc", "cdb", "234", "44444"]
 amounts = [1,2.3,102]
-wallets = mapv(lambda private_key: Wallet(private_key=1), private_keys)
+wallets = mapv(lambda private_key: Wallet(1), private_keys)
 
 pygen_pw = pytest.mark.parametrize("private_key,wallet", 
     zip(private_keys, wallets))

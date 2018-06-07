@@ -30,7 +30,6 @@ class Block:
         for i in range(10**9):
             self.nounce = i
             if self.is_mined(difficult):
-                #print(i)
                 return
         raise Exception('too difficult to mine')
 

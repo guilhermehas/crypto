@@ -29,7 +29,7 @@ class PublicKey:
     def verify(self, signature, message):
         return str(message)+str(self.n) == signature 
     
-    
+'''
 def get_private_key(n):
     #if isinstance(n,int):
     #    return ec.derive_private_key(n, ec.SECP384R1(), default_backend())
@@ -75,3 +75,4 @@ def is_signed_correctly(signature, message, public_key):
     #    return True
     #except:
     #    return False
+'''

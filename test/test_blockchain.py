@@ -3,7 +3,6 @@ from transaction import *
 from blockchain import *
 from wallet import *
 from tools import mapv
-from crypto import private_to_pub_bytes
 import pytest
 from examples_to_test import blockchain as block_example
 from examples_to_test import *
