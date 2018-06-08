@@ -4,12 +4,7 @@ from blockchain import *
 from wallet import *
 from tools import mapv
 import pytest
-from examples_to_test import blockchain as block_example
 from examples_to_test import *
-
-@pytest.fixture
-def blockchain():
-    return block_example()
 
 def test_blockchain_to_dict(blockchain):
     blockchain_dict = blockchain.to_dict()

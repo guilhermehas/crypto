@@ -4,6 +4,7 @@ from tools import *
 from crypto import *
 from blockchain import *
 from block import *
+import pytest
 
 tuple_transactions = [
     (43, [(43, 28)]),
@@ -36,6 +37,7 @@ def transaction_to_block(transaction, miner, blockchain):
 # 53 -> 1
 # 43 -> 1
 
+@pytest.fixture
 def blockchain():
     blockchain = Blockchain()
 

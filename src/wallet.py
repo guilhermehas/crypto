@@ -22,4 +22,4 @@ class Wallet:
         return signed_transaction
     
     def get_balance(self,blockchain):
-        pass
+        return blockchain.balances[self.get_public_key_in_bytes()]
