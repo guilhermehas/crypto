@@ -5,31 +5,27 @@ from blockchain import *
 from tools import mapv
 import pytest
 
-@pytest.fixture
-def blockchain():
-    return block_example()
-
 # 63 -> 28
 # 53 -> 1
 # 43 -> 1
 
 @pytest.fixture
-def transactionPool():
+def transactionPool() -> TransactionPool:
     transactionPool = TransactionPool()
     return transactionPool
 
-def test_receive_transaction(transactionPool, blockchain):
+def test_receive_transaction(transactionPool : TransactionPool, blockchain : Blockchain):
     transaction = to_transaction((63, [(43, 28)]))
     assert transactionPool.receive_transaction(blockchain, transaction)
 
     transaction = to_transaction((63, [(43, 13)]))
     assert transactionPool.receive_transaction(blockchain, transaction)
 
-def test_transaction_wrong(transactionPool, blockchain):
+def test_transaction_wrong(transactionPool : TransactionPool, blockchain : Blockchain):
     transaction = to_transaction((63, [(43, 29)]))
     assert not transactionPool.receive_transaction(blockchain, transaction)
 
-def test_add_same_transaction(blockchain):
+def test_add_same_transaction(blockchain : Blockchain):
     transaction = to_transaction((63, [(63, 27)]))
     block = Block(blockchain.get_last_block(), [transaction])
     block.mine(blockchain.get_difficult())
@@ -37,7 +33,7 @@ def test_add_same_transaction(blockchain):
     transactionPool = TransactionPool()
     assert not transactionPool.receive_transaction(blockchain, transaction)
 
-def test_pick_best_transactions(transactionPool, blockchain):
+def test_pick_best_transactions(transactionPool : TransactionPool, blockchain : Blockchain):
     transactions = mapv(to_transaction, (((63, [(63, 1)])), (63, [(63, 9)]), (63, [(63, 27)])))
     for i in (2,0,1):
         transactionPool.receive_transaction(blockchain, transactions[i])

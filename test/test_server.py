@@ -9,32 +9,28 @@ import random
 from copy import deepcopy
 
 @pytest.fixture
-def blockchain():
-    return get_blockchain()
-
-@pytest.fixture
-def server():
+def server() -> ServerUtils:
     wallet= Wallet(3)
     return ServerUtils(wallet)
 
-def test_print_blockchain(blockchain, server):
+def test_print_blockchain(blockchain : Blockchain, server : ServerUtils):
     server.receive_block_array(BlockArray(blockchain))
     msg = server.get_blockchain_str()
     assert isinstance(msg, str)
 
 
-def test_same_transaction(server):
+def test_same_transaction(server : ServerUtils):
     transaction = transactions[0]
     transaction_str = server.to_str(transaction)
     transaction2 = server.to_obj(transaction_str)
     assert transaction.is_equal(transaction2)
 
-def test_receive_blockArray(blockchain, server):
+def test_receive_blockArray(blockchain : Blockchain, server : ServerUtils):
     blockArray = BlockArray(blockchain)
     server.receive_block_array(blockArray)
     assert len(server.blockchain) == 3
 
-def test_receive_transaction(server, blockchain):
+def test_receive_transaction(server : ServerUtils, blockchain : Blockchain):
     transaction = transactions[0]
     len_blockchain_before = len(server.blockchain)
 
@@ -48,7 +44,7 @@ def test_mine(server):
     server.mine()
     assert len(server.blockchain) == 1
 
-def test_mine_command(server, blockchain):
+def test_mine_command(server : ServerUtils, blockchain : Blockchain):
     transaction = transactions[0]
     len_blockchain_before = len(server.blockchain)
 
@@ -63,7 +59,7 @@ def test_mine_command(server, blockchain):
     len_blockchain_after = len(server.blockchain)
     assert len_blockchain_after == len_blockchain_before + 1
 
-def test_transaction_command_person_transaction(server, blockchain):
+def test_transaction_command_person_transaction(server : ServerUtils, blockchain : Blockchain):
     server.receive_block_array(BlockArray(blockchain))
     command = {
         'agent': 'person',
@@ -77,7 +73,7 @@ def test_transaction_command_person_transaction(server, blockchain):
     len_after = len(server.transactionPool.transactions)
     assert len_after == len_before + 1
 
-def test_transaction_command_person_blockchain(server, blockchain):
+def test_transaction_command_person_blockchain(server : ServerUtils, blockchain : Blockchain):
     server.receive_block_array(BlockArray(blockchain))
     command = {
         'agent': 'person',
@@ -87,7 +83,7 @@ def test_transaction_command_person_blockchain(server, blockchain):
     assert 'message' in ret
     #print(ret)
 
-def test_transaction_command_machine_transaction(server, blockchain):
+def test_transaction_command_machine_transaction(server : ServerUtils, blockchain : Blockchain):
     server.receive_block_array(BlockArray(blockchain))
     transaction = transactions[5]
     command = {
@@ -101,7 +97,7 @@ def test_transaction_command_machine_transaction(server, blockchain):
     len_after = len(server.transactionPool.transactions)
     assert len_after == len_before + 1
 
-def test_transaction_command_machine_blockchain(blockchain):
+def test_transaction_command_machine_blockchain(blockchain : Blockchain):
     block_array_old = BlockArray(blockchain)
     block_array_old.chain.pop()
     len_before = len(block_array_old)

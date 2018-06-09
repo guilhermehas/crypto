@@ -14,7 +14,9 @@ class Blockchain:
         self.transaction_hashes : Set[Any] = set()
 
     def reset(self) -> None:
-        self.__init__()
+        self.chain : List[Block] = []
+        self.balances : Dict[Any,float] = defaultdict(float)
+        self.transaction_hashes : Set[Any] = set()
     
     def to_dict(self) -> Dict[str,Any]:
         return {
@@ -116,7 +118,7 @@ class BlockArray:
         else:
             self.chain = deepcopy(blocks)
     
-    def to_blockchain(self) -> Blockchain:
+    def to_blockchain(self) -> Optional[Blockchain]:
         blockchain = Blockchain()
         for block in self.chain:
             if not blockchain.is_new_block_OK(block):

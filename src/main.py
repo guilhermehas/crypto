@@ -2,10 +2,11 @@
 
 import asyncio
 import websockets
-from server import *
+from server import ServerUtils
 import argparse
 from wallet import *
 from json import loads, dumps
+from typing import List
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--port", help="choose the port", type=int)
@@ -15,7 +16,7 @@ parser.add_argument('--servers', nargs='*', help="servers to connect")
 args = parser.parse_args()
 port = 8765
 wallet_number = 40
-servers_connected = []
+servers_connected : List[str] = []
 
 if args.port:
     port = args.port
