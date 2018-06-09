@@ -1,16 +1,16 @@
 from crypto import *
 import pickle
-from cryptography.hazmat.primitives.asymmetric import ec
-from cryptography.hazmat.primitives import hashes
+from typing import Optional, Dict, Any
 
 class Transaction:
-    def __init__(self, outputs, input=None, timestamp = 0, signature = None):
+    def __init__(self, outputs, input=None, timestamp : int = 0, signature : Optional[bytes] = None) -> None:
         self.input = input
         self.outputs = outputs
         self.signature = signature
         self.timestamp = timestamp
     
-    def __bytes__(self):
+    
+    def __bytes__(self) -> bytes:
         to_compress = (self.input, self.outputs, self.timestamp)
         all_data = bytes(str(to_compress), encoding="utf-8")
         return all_data
@@ -18,7 +18,7 @@ class Transaction:
     def __hash__(self):
         return hash(bytes(self))
     
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return {
             "input": hash(self.input), 
             "outputs": [(hash(pub),out) for pub,out in self.outputs],
@@ -26,19 +26,16 @@ class Transaction:
             "timestamp": self.timestamp
         }
     
-    def is_signed_correctly(self):
+    def is_signed_correctly(self) -> bool:
         return PublicKey(self.input).verify(self.signature, bytes(self))
-        #return is_signed_correctly(self.signature, bytes(self), get_public_key(self.input))
     
-    def get_sum_outputs(self):
+    def get_sum_outputs(self) -> float:
         sum_output = 0
         for _, out in self.outputs:
             sum_output += out
         return sum_output
 
-    def is_equal(self, transaction):
+    def is_equal(self, transaction: 'Transaction') -> bool:
         return self.input == transaction.input and \
             self.outputs == transaction.outputs and \
             self.timestamp == transaction.timestamp
-
-            ##self.signature == transaction.signature and \

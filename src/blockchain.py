@@ -1,27 +1,29 @@
 from collections import defaultdict
 from tools import mapv
 from transaction import *
+from block import Block
 from copy import deepcopy
+from typing import Any, Dict, Optional, Iterable, Union, List, Dict, Set
 
 class Blockchain:
-    def __init__(self):
-        self.reset()
+    def __init__(self) -> None:
+        self.difficult : int = 0
+        self.chain : List[Block] = []
+        self.reward : int = 10
+        self.balances : Dict[Any,float] = defaultdict(float)
+        self.transaction_hashes : Set[Any] = set()
 
-    def reset(self):
-        self.chain = []
-        self.difficult = 0
-        self.reward = 10
-        self.balances = defaultdict(float)
-        self.transaction_hashes = set()
+    def reset(self) -> None:
+        self.__init__()
     
-    def to_dict(self):
+    def to_dict(self) -> Dict[str,Any]:
         return {
             'balances': [(int(key.decode('utf8')), qt) for key, qt in self.balances.items()],
             'blocks': [block.to_dict() for block in self.chain]
         }
     
     
-    def copy(self, blockchain):
+    def copy(self, blockchain : 'Blockchain') -> None:
         self.reset()
         self.chain = deepcopy(blockchain.chain)
         self.difficult = blockchain.difficult
@@ -29,21 +31,21 @@ class Blockchain:
         self.balances = deepcopy(blockchain.balances)
         self.transaction_hashes = deepcopy(blockchain.transaction_hashes)
     
-    def get_difficult(self):
+    def get_difficult(self) -> int:
         return self.difficult
     
-    def get_transactions(self):
+    def get_transactions(self) -> Iterable[Transaction]:
         for block in self.chain:
             if block.transactions:
                 yield from block.transactions
     
-    def is_new_block_OK(self, block):
+    def is_new_block_OK(self, block : Block) -> bool:
         senders = mapv(lambda transaction: transaction.input, block.transactions)
         is_just_one_senders_per_block = len(senders) != len(set(senders))
         if is_just_one_senders_per_block:
             return False
 
-        def is_transaction_right(transaction):
+        def is_transaction_right(transaction : Transaction) -> bool:
             if not transaction.is_signed_correctly():
                 return False
             
@@ -67,7 +69,7 @@ class Blockchain:
                 return False
         return True
 
-    def add(self, block):
+    def add(self, block : Block) -> None:
         if self.is_new_block_OK(block):
 
             self.chain.append(block)
@@ -88,7 +90,7 @@ class Blockchain:
         else:
             raise Exception('Blockchain invalid')
     
-    def substitute(self, blockArray):
+    def substitute(self, blockArray : 'BlockArray'):
         if len(blockArray) < len(self):
             return False
         new_blockchain = blockArray.to_blockchain()
@@ -98,23 +100,23 @@ class Blockchain:
         return True
 
     
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.chain)
 
-    def get_last_block(self):
+    def get_last_block(self) -> Optional[Block]:
         if self.chain:
             return self.chain[-1]
         else:
             return None
 
 class BlockArray:
-    def __init__(self, blocks):
+    def __init__(self, blocks : Union[List[Block], Blockchain]) -> None:
         if isinstance(blocks, Blockchain):
             self.chain = deepcopy(blocks.chain)
         else:
             self.chain = deepcopy(blocks)
     
-    def to_blockchain(self):
+    def to_blockchain(self) -> Blockchain:
         blockchain = Blockchain()
         for block in self.chain:
             if not blockchain.is_new_block_OK(block):
@@ -122,13 +124,13 @@ class BlockArray:
             blockchain.add(block)
         return blockchain
 
-    def is_correct(self):
+    def is_correct(self) -> bool:
         if self.to_blockchain() is None:
             return False
         return True
     
-    def add(self, block):
+    def add(self, block : Block) -> None:
         self.chain.append(block)
     
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.chain)

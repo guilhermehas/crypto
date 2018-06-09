@@ -7,31 +7,31 @@ from block import *
 from wallet import *
 
 class ServerUtils():
-    def __init__(self, wallet):
+    def __init__(self, wallet : Wallet) -> None:
         self.blockchain =  Blockchain()
         self.transactionPool = TransactionPool()
         self.wallet = wallet
     
-    def receive_block_array(self, blockArray):
+    def receive_block_array(self, blockArray : BlockArray) -> None:
         self.blockchain.substitute(blockArray)
     
-    def receive_transaction(self, transaction):
+    def receive_transaction(self, transaction : Transaction) -> None:
         self.transactionPool.receive_transaction(self.blockchain, transaction)
     
-    def get_blockchain_str(self):
+    def get_blockchain_str(self) -> str:
         return str(self.blockchain.to_dict())
     
-    def mine(self):
+    def mine(self) -> None:
         transactions = self.transactionPool.get_best_transactions(self.blockchain, 1)
         block = Block(self.blockchain.get_last_block(), transactions,  \
             miner_pub_key=self.wallet.get_public_key_in_bytes())
         block.mine(self.blockchain.get_difficult())
         self.blockchain.add(block)
     
-    def to_str(self, obj):
+    def to_str(self, obj) -> str:
         return str(b64encode(dumps(obj, protocol=pickle.HIGHEST_PROTOCOL)), 'utf8')
     
-    def to_obj(self, string):
+    def to_obj(self, string : str) -> bytes:
         return loads(b64decode(string))
     
     def get_command_blockchain(self):

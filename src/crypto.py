@@ -4,30 +4,32 @@
 #from cryptography.hazmat.primitives import hashes
 #from cryptography.hazmat.primitives.serialization import load_pem_public_key, Encoding, PublicFormat
 #from pickle import load
+from typing import Optional, Union
 
-
-class PrivateKey:
-    def __init__(self, n):
-        self.n = n
-    
-    def public_key(self):
-        return PublicKey(self.n)
-    
-    def sign(self, message):
-        return str(message)+str(self.n)
 
 class PublicKey:
-    def __init__(self, n):
+    def __init__(self, n : Union[int,bytes]) -> None:
         if isinstance(n, int):
             self.n = n
         else:
             self.n = int(n.decode('utf8'))
     
-    def to_bytes(self):
+    def to_bytes(self) -> bytes:
         return bytes(str(self.n), encoding='utf8')
     
     def verify(self, signature, message):
         return str(message)+str(self.n) == signature 
+
+class PrivateKey:
+    def __init__(self, n : int) -> None:
+        self.n = n
+    
+    def public_key(self) -> PublicKey:
+        return PublicKey(self.n)
+    
+    def sign(self, message) -> str:
+        return str(message)+str(self.n)
+
     
 '''
 def get_private_key(n):
