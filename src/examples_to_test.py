@@ -1,10 +1,11 @@
-from transaction import *
-from wallet import *
-from tools import *
-from crypto import *
-from blockchain import *
-from block import *
 import pytest
+
+from transaction import Transaction
+from wallet import Wallet
+from tools import mapv
+from crypto import PublicKey, PrivateKey
+from blockchain import BlockArray, Blockchain
+from block import Block, GenesisBlock
 
 tuple_transactions = [
     (43, [(43, 28)]),

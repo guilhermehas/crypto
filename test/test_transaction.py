@@ -1,7 +1,8 @@
 import pytest
-from transaction import *
-from wallet import *
-from crypto import *
+
+from transaction import Transaction
+from wallet import Wallet
+from crypto import PrivateKey
 
 
 @pytest.mark.parametrize("sender_key,receiver_key,amount", [ 

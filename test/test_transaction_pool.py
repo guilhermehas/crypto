@@ -1,9 +1,11 @@
-from transaction_pool import *
-from examples_to_test import blockchain as block_example
-from examples_to_test import *
-from blockchain import *
-from tools import mapv
 import pytest
+
+from transaction_pool import TransactionPool
+from examples_to_test import blockchain, to_transaction
+from blockchain import Blockchain
+from block import Block
+from tools import mapv
+
 
 # 63 -> 28
 # 53 -> 1

@@ -1,12 +1,10 @@
 import pytest
-
-from blockchain import *
-from examples_to_test import *
-from server import *
-from examples_to_test import blockchain as get_blockchain
-from wallet import *
-import random
 from copy import deepcopy
+
+from blockchain import Blockchain, BlockArray
+from examples_to_test import transactions, blockchain
+from server import ServerUtils
+from wallet import Wallet
 
 @pytest.fixture
 def server() -> ServerUtils:

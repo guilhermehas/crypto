@@ -1,10 +1,11 @@
-from block import Block, GenesisBlock
-from transaction import *
-from blockchain import BlockArray, Blockchain
-from wallet import *
-from tools import mapv
 import pytest
-from examples_to_test import *
+
+from block import Block, GenesisBlock
+from transaction import Transaction
+from blockchain import BlockArray, Blockchain
+from wallet import Wallet
+from tools import mapv
+from examples_to_test import transaction_to_block, transactions, blockchain
 
 def test_blockchain_to_dict(blockchain : Blockchain):
     blockchain_dict = blockchain.to_dict()

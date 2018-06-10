@@ -1,5 +1,6 @@
-from crypto import *
 from copy import deepcopy
+
+from crypto import PrivateKey, PublicKey
 
 class Wallet:
     def __init__(self, private_key_number):

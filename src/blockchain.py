@@ -1,9 +1,11 @@
+from typing import Any, Dict, Optional, Iterable, Union, List, Dict, Set
+
+from copy import deepcopy
+
 from collections import defaultdict
 from tools import mapv
-from transaction import *
+from transaction import Transaction
 from block import Block
-from copy import deepcopy
-from typing import Any, Dict, Optional, Iterable, Union, List, Dict, Set
 
 class Blockchain:
     def __init__(self) -> None:

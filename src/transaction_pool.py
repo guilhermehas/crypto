@@ -1,7 +1,8 @@
-from heapq import heappush, heappop
-from blockchain import *
-from transaction import Transaction
 from typing import List, Tuple
+
+from heapq import heappush, heappop
+from blockchain import Blockchain
+from transaction import Transaction
 
 class TransactionPool:
     def __init__(self) -> None:

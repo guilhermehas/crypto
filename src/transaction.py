@@ -1,6 +1,7 @@
-from crypto import *
-import pickle
 from typing import Optional, Dict, Any
+import pickle
+
+from crypto import PrivateKey, PublicKey
 
 class Transaction:
     def __init__(self, outputs, input=None, timestamp : int = 0, signature : Optional[bytes] = None) -> None:

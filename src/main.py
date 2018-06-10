@@ -1,12 +1,12 @@
-# WS server example
+from typing import List
 
 import asyncio
 import websockets
-from server import ServerUtils
 import argparse
-from wallet import *
 from json import loads, dumps
-from typing import List
+
+from server import ServerUtils
+from wallet import Wallet
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--port", help="choose the port", type=int)

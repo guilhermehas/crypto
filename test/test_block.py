@@ -1,5 +1,6 @@
 import pytest
 from typing import List
+
 from block import Block, GenesisBlock
 from tools import mapv
 from transaction import Transaction

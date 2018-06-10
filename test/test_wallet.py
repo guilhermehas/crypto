@@ -1,4 +1,5 @@
 import pytest
+
 from wallet import Wallet
 from tools import mapv
 from transaction import Transaction

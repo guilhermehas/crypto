@@ -1,8 +1,10 @@
+from typing import List, Dict, Any, Optional
+
 from hashlib import sha256
 from pickle import dumps
-from tools import *
+from tools import mapv
+
 from transaction import Transaction
-from typing import List, Dict, Any, Optional
 
 class Block:
     def __init__(self, previous_block : Optional['Block'], transactions : List[Transaction], \
