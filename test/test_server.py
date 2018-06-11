@@ -24,7 +24,7 @@ def test_same_transaction(server : ServerUtils):
     assert transaction.is_equal(transaction2)
 
 def test_receive_blockArray(blockchain : Blockchain, server : ServerUtils):
-    blockArray = BlockArray(blockchain)
+    blockArray = BlockArray(blockchain.chain)
     server.receive_block_array(blockArray)
     assert len(server.blockchain) == 3
 

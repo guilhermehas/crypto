@@ -12,7 +12,7 @@ class Wallet:
     def get_public_key_in_bytes(self):
         return self.get_public_key().to_bytes()
     
-    def sign(self,transaction):
+    def sign(self, transaction):
         signed_transaction = deepcopy(transaction)
 
         if signed_transaction.input is None:
