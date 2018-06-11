@@ -29,7 +29,7 @@ def test_blockchain_small(blockchain : Blockchain):
     small_blockchain.copy(blockchain)
     small_blockchain.chain.pop()
 
-    assert not blockchain.substitute(small_blockchain)
+    assert not blockchain.substitute(BlockArray(small_blockchain))
     
 def test_blockchain_right(blockchain : Blockchain):
     assert BlockArray(blockchain).is_correct()
@@ -47,6 +47,7 @@ def test_change_blockchain(blockchain : Blockchain):
 def test_blockchain_not_mined(blockchain : Blockchain):
     block = blockchain.chain.pop()
     new_blockchain = BlockArray(blockchain).to_blockchain()
+    if not new_blockchain: return
     new_blockchain.difficult = 5
     assert not new_blockchain.is_new_block_OK(block)
 
