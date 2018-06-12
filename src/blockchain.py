@@ -22,7 +22,7 @@ class Blockchain:
     
     def to_dict(self) -> Dict[str,Any]:
         return {
-            'balances': [(int(key.decode('utf8')), qt) for key, qt in self.balances.items()],
+            'balances': dict([(int(key.decode('utf8')), qt) for key, qt in self.balances.items()]),
             'blocks': [block.to_dict() for block in self.chain]
         }
     

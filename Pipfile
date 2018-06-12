@@ -12,6 +12,7 @@ asyncio = "*"
 websockets = "*"
 argparse = "*"
 mypy = "*"
+flask = "*"
 
 [dev-packages]
 
