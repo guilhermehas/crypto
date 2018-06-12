@@ -8,12 +8,11 @@ cryptography = "*"
 coveralls = "*"
 pytest = "*"
 pytest-cov = "*"
-asyncio = "*"
-websockets = "*"
 argparse = "*"
 mypy = "*"
 flask = "*"
 wtforms = "*"
+pytest-flask = "*"
 
 [dev-packages]
 
