@@ -85,3 +85,12 @@ def test_receive_blockchain(client, blockchain):
     blockchain = res.json
     assert len(blockchain['blocks']) == 3
     
+def test_receive_ips(client):
+    ips = ['localhost:8888']
+    res = client.post(url_for('receive_ips'), \
+                      data=dumps(ips))
+    assert res.status_code == 200
+
+    res = client.get(url_for('get_ips'))
+    assert res.status_code == 200
+    assert res.json == ips
