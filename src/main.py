@@ -15,14 +15,11 @@ def get_args():
                         help="choose the wallet private key")
     args = parser.parse_args()
     args.servers = []
+    args.wallet = 1
     return args
 
 def get_server(args):
-    port = args.port
-    ip = args.ip or 'localhost'
-    wallet_id = args.wallet or 1
-    servers = args.servers or []
-    return create_app(my_ip=f'{ip}:{port}', key=wallet_id, servers=servers)
+    return create_app(my_ip=f'{args.ip}:{args.port}', key=args.wallet, servers=args.servers)
 
 def main():
     args = get_args()
