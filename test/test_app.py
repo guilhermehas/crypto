@@ -84,6 +84,14 @@ def test_receive_blockchain(client, blockchain):
     res = client.get('blockchain')
     blockchain = res.json
     assert len(blockchain['blocks']) == 3
+
+def test_receive_not_blockchain(client, blockchain):
+    string = 'some string'
+    string_b = b64encode(pickle.dumps(string))
+    res = client.post(url_for('receive_blockchain'), \
+                      data=string_b)
+    
+    assert res.status_code == 403
     
 def test_receive_ips(client):
     ips = ['localhost:8888']

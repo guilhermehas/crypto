@@ -234,7 +234,7 @@
 <p id="t22" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t23" class="stm run hide_run">    <span class="key">def</span> <span class="nam">to_dict</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span> <span class="op">-></span> <span class="nam">Dict</span><span class="op">[</span><span class="nam">str</span><span class="op">,</span><span class="nam">Any</span><span class="op">]</span><span class="op">:</span><span class="strut">&nbsp;</span></p>
 <p id="t24" class="stm run hide_run">        <span class="key">return</span> <span class="op">{</span><span class="strut">&nbsp;</span></p>
-<p id="t25" class="pln">            <span class="str">'balances'</span><span class="op">:</span> <span class="op">[</span><span class="op">(</span><span class="nam">int</span><span class="op">(</span><span class="nam">key</span><span class="op">.</span><span class="nam">decode</span><span class="op">(</span><span class="str">'utf8'</span><span class="op">)</span><span class="op">)</span><span class="op">,</span> <span class="nam">qt</span><span class="op">)</span> <span class="key">for</span> <span class="nam">key</span><span class="op">,</span> <span class="nam">qt</span> <span class="key">in</span> <span class="nam">self</span><span class="op">.</span><span class="nam">balances</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span><span class="op">]</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t25" class="pln">            <span class="str">'balances'</span><span class="op">:</span> <span class="nam">dict</span><span class="op">(</span><span class="op">[</span><span class="op">(</span><span class="nam">int</span><span class="op">(</span><span class="nam">key</span><span class="op">.</span><span class="nam">decode</span><span class="op">(</span><span class="str">'utf8'</span><span class="op">)</span><span class="op">)</span><span class="op">,</span> <span class="nam">qt</span><span class="op">)</span> <span class="key">for</span> <span class="nam">key</span><span class="op">,</span> <span class="nam">qt</span> <span class="key">in</span> <span class="nam">self</span><span class="op">.</span><span class="nam">balances</span><span class="op">.</span><span class="nam">items</span><span class="op">(</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
 <p id="t26" class="pln">            <span class="str">'blocks'</span><span class="op">:</span> <span class="op">[</span><span class="nam">block</span><span class="op">.</span><span class="nam">to_dict</span><span class="op">(</span><span class="op">)</span> <span class="key">for</span> <span class="nam">block</span> <span class="key">in</span> <span class="nam">self</span><span class="op">.</span><span class="nam">chain</span><span class="op">]</span><span class="strut">&nbsp;</span></p>
 <p id="t27" class="pln">        <span class="op">}</span><span class="strut">&nbsp;</span></p>
 <p id="t28" class="pln"><span class="strut">&nbsp;</span></p>
@@ -360,7 +360,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-06-11 02:26
+            created at 2018-06-13 18:36
         </p>
     </div>
 </div>
