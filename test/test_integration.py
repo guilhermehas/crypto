@@ -1,4 +1,6 @@
-# test_app.py
+# test_integration.py
+from typing import Dict, Any
+
 import pytest
 from mock import patch
 
@@ -7,7 +9,7 @@ from json import loads
 from app import create_app
 
 
-clients = {}
+clients : Dict[str, Any] = {}
 def new_post(url, **argsw):
     url = url[len('http://'):]
     bar_pos = url.find('/')
