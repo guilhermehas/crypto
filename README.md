@@ -61,26 +61,21 @@ pipenv run python3 src/main.py --wallet 5 --port 8767 \
 --servers ws://localhost:8765
 ```
 
-#### Sending web sockets commands:
-Send this command to [ws://localhost:8765]() to lock up the blockchain
-```json
-{
-    "agent": "person",
-    "command": "blockchain"
-}
+#### HTTP REST API:
+Use this command to [http://localhost:8765]() to lock up the blockchain
+```
+GET /blockchain
 ```
 Send this command to mine a block
-```json
-{
-    "agent": "person",
-    "command": "mine"
-}
 ```
-Send this command to send the transaction to person with public key equal to 1 and the amount is 5. The sender is the one which wallet was specified at command line.
+GET /mine
+```
+Use this command to send a transaction to person with public key equal to 1 and the amount is 5. The sender is the one which wallet was specified at command line.
+```
+POST /addtransaction
+```
 ```json
 {
-	"agent": "person",
-	"command": "transaction",
 	"receiver": 1,
 	"amount": 5
 }
