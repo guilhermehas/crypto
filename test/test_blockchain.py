@@ -11,6 +11,10 @@ def test_blockchain_to_dict(blockchain : Blockchain):
     blockchain_dict = blockchain.to_dict()
     assert blockchain_dict is not None
 
+def test_none_block():
+    blockchain = Blockchain()
+    assert blockchain.get_last_block() == None
+
 def test_blockchain_wrong(blockchain : Blockchain):
     blockchain.chain[-2].miner_pub_key = b"zzz"
     barray = BlockArray(blockchain)
@@ -76,3 +80,7 @@ def test_dont_change_blockchain(blockchain : Blockchain):
     
     assert blockchain.substitute(blockArray)
     assert len(blockchain) == previous_len
+
+def test_block_array_receive_blocks(blockchain : Blockchain):
+    blockArray = BlockArray(blockchain.chain)
+    assert len(blockArray.chain) == 3

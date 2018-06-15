@@ -17,3 +17,4 @@ def test_transaction(sender_key : int, receiver_key : int, amount: float):
     signed_transaction = wallet.sign(transaction)
 
     assert signed_transaction.is_signed_correctly()
+    assert signed_transaction.is_equal(signed_transaction)
