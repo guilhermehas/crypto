@@ -38,7 +38,7 @@ class Block:
             self.nounce = i
             if self.is_mined(difficult):
                 return
-        raise Exception('too difficult to mine')
+        #raise Exception('too difficult to mine')
 
 
 def GenesisBlock(miner_pub_key : Optional[bytes] = None) -> Block:

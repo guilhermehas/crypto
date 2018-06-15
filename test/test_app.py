@@ -1,5 +1,7 @@
 # test_app.py
 import pytest
+from mock import patch
+
 from flask import url_for
 from json import dumps
 from base64 import b64encode
@@ -7,6 +9,7 @@ import pickle
 
 from examples_to_test import blockchain
 from blockchain import BlockArray
+from app import create_app
 
 MINER_PUB_KEY = 1
 MINER_REWARD = 10
@@ -20,6 +23,16 @@ def transaction():
         'amount': AMOUNT_TRANS
     }
     return transaction_dict
+
+@patch('app.requests.post')
+def test_mining_with_servers(mocked_post, client):
+    def post(x, data=None):
+        return
+    mocked_post.return_value = post
+    
+    app = create_app(servers=['']).test_client()
+    res = app.get('mine')
+    assert res.status_code == 200
 
 def test_get_blockchain(client):
     res = client.get('blockchain')

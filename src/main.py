@@ -25,5 +25,8 @@ def main():
     args = get_args()
     get_server(args).run(args.port)
 
-if __name__ == '__main__':
-    main()
+def init():
+    if __name__ == '__main__':
+        sys.exit(main())
+
+init()
