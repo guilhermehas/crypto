@@ -1,5 +1,6 @@
 from typing import List
 
+from copy import deepcopy
 from json import loads, dumps
 from base64 import b64decode, b64encode
 import pickle
@@ -18,13 +19,16 @@ from crypto import PublicKey, PrivateKey
 def create_app(my_ip : str = 'localhost:5000', key : int = 1, servers : List[str] = []):
     app = Flask(__name__)
     
+    servers = deepcopy(servers)
     blockchain = Blockchain()
     transactionPool = TransactionPool()
 
     miner_key = PrivateKey(key).public_key().to_bytes()
 
+    print(f'1ip: {my_ip} servers: {servers}')
     def send_my_ip():
         server_data = servers+[my_ip]
+        print(f'ip: {my_ip} servers: {servers}')
         for server in servers:
             requests.post(f'http://{server}/receiveips', \
                           data=dumps(server_data))
@@ -88,7 +92,6 @@ def create_app(my_ip : str = 'localhost:5000', key : int = 1, servers : List[str
         if isinstance(ips, list):
             for ip in ips:
                 if ip not in servers and ip != my_ip:
-                    print(f'Received {ip}')
                     servers.append(ip)
         return ''
     

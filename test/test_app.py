@@ -25,7 +25,7 @@ def transaction():
     return transaction_dict
 
 @patch('app.requests.post')
-def test_mining_with_servers(mocked_post, client):
+def test_mining_with_servers(mocked_post):
     def post(x, data=None):
         return
     mocked_post.return_value = post
