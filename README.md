@@ -1,7 +1,7 @@
 Cryptocurrency
 ==
 [![Build Status](https://travis-ci.org/guilhermehas/crypto.svg?branch=master)](https://travis-ci.org/guilhermehas/crypto)
-[![Coverage Status](https://coveralls.io/repos/github/guilhermehas/crypto/badge.svg?branch=master)](https://coveralls.io/github/guilhermehas/crypto?branch=master)
+<a href='https://coveralls.io/github/guilhermehas/crypto?branch=master'><img src='https://coveralls.io/repos/github/guilhermehas/crypto/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 This project is making an implementation of a copy of bitcoin in python.
 
