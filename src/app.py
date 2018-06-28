@@ -25,10 +25,8 @@ def create_app(my_ip : str = 'localhost:5000', key : int = 1, servers : List[str
 
     miner_key = PrivateKey(key).public_key().to_bytes()
 
-    print(f'1ip: {my_ip} servers: {servers}')
     def send_my_ip():
         server_data = servers+[my_ip]
-        print(f'ip: {my_ip} servers: {servers}')
         for server in servers:
             requests.post(f'http://{server}/receiveips', \
                           data=dumps(server_data))
